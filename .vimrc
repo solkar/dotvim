@@ -38,6 +38,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+
+"plugin/mapping configuration {{{
 " Syntax, highlighting
 NeoBundle 'scrooloose/syntastic' "{{{
       let g:syntastic_error_symbol = '✗'
@@ -84,7 +86,6 @@ NeoBundle 'Chiel92/vim-autoformat'
 " OmniSharp
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'OmniSharp/omnisharp-vim'
-"NeoBundleLazy 'nosami/Omnisharp', {'autoload':{'filetypes':['cs']}}
 "NeoBundle 'Shougo/unite.vim'
 "let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
 let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
@@ -168,21 +169,8 @@ NeoBundle 'tpope/vim-fugitive'
 " Markdown
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown.git'
-call neobundle#end()
 
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
-"call pathogen#runtime_append_all_bundles()
-
-set number		" show line numbers
-syntax on		" enable syntax highlighting
-set hlsearch		" highlight searches
-
+"}}}
 
 " Unite Mappings
 "nnoremap <Leader>f :Unite -start-insert file_rec/async<CR>
@@ -279,15 +267,13 @@ let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
 
 
 
-filetype plugin indent on 
-
-
-" tabspacing
+" base configuration{{{
+set number		        " show line numbers
+set hlsearch            " highlight searches
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
- 
 set ttyfast
 set noswapfile
 set nobackup
@@ -307,8 +293,26 @@ set backspace=indent,eol,start
 set laststatus=2
 "set relativenumber
 set undofile
+set autoread                "auto reload if file saved externally
+if exists('$TMUX')
+    set clipboard=
+else
+    set clipboard=unnamed   "sync with OS clipboard
+endif
+
 
 let mapleader = ","
+"}}}
+
+" Search options{{{
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+"}}}
+
 
 let g:pydiction_location = '~/.vim/ftplugin/pydiction-1.2/complete-dict'
 
@@ -351,13 +355,6 @@ set background=light "/dark
 "colorscheme vividchalk
 "set t_Co=256
 
-" Search options
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
 
 "Remove search highlights
 nnoremap <leader><space> :noh<cr>
@@ -477,3 +474,10 @@ iab dió             dio
 iab actios          actions
 iab asi             así
 iab virtual         virtual
+
+
+call neobundle#end()
+filetype plugin indent on
+syntax enable
+
+NeoBundleCheck
