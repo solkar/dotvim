@@ -10,6 +10,14 @@ let g:dotvim_settings.version = 1
 let s:cache_dir = get(g:dotvim_settings, 'cache_dir', '~/.vim/.cache')
 "}}}
 
+" initialize default settings
+let s:settings = {}
+let s:settings.default_indent = 2
+let s:settings.max_column = 120
+let s:settings.autocomplete_method = 'neocomplcache'
+let s:settings.enable_cursorcolumn = 0
+let s:settings.colorscheme = 'jellybeans'
+
 " functions {{{
   function! s:get_cache_dir(suffix) "{{{
     return resolve(expand(s:cache_dir . '/' . a:suffix))
@@ -353,16 +361,23 @@ nnoremap Q :normal n.<CR>
 " format JSON
 nmap <Leader>j !python -m json.tool<CR>
 
-"Colors
-"colorscheme navajo-night
-"colorscheme desert
-colorscheme solarized
-set background=light "/dark
-"colorscheme candy
-"colorscheme github
-"colorscheme grb256
-"colorscheme vividchalk
-"set t_Co=256
+
+" color schemes {{{
+  NeoBundle 'altercation/vim-colors-solarized' "{{{
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+  "}}}
+  NeoBundle 'nanotech/jellybeans.vim'
+  NeoBundle 'tomasr/molokai'
+  NeoBundle 'chriskempson/vim-tomorrow-theme'
+  NeoBundle 'chriskempson/base16-vim'
+  NeoBundle 'w0ng/vim-hybrid'
+  NeoBundle 'sjl/badwolf'
+  NeoBundle 'zeis/vim-kolor' "{{{
+    let g:kolor_underlined=1
+  "}}}
+"}}}
+
 
 
 "Remove search highlights
@@ -488,5 +503,6 @@ iab virtual         virtual
 call neobundle#end()
 filetype plugin indent on
 syntax enable
+exec 'colorscheme '.s:settings.colorscheme
 
 NeoBundleCheck
