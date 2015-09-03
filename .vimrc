@@ -133,6 +133,7 @@ NeoBundle 'OmniSharp/omnisharp-vim' "{{{
 let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
 "let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
 "}}}
+NeoBundle 'OrangeT/vim-csharp'
 
 " unite & extensions{{{ 
 NeoBundle 'Shougo/unite.vim' "{{{
