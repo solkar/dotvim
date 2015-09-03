@@ -72,6 +72,10 @@ NeoBundle 'Shougo/neosnippet.vim' "{{{
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 "}}}
 NeoBundle 'avakhov/vim-yaml'
 NeoBundle 'vim-scripts/loremipsum'
