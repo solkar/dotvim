@@ -203,7 +203,7 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-markdown'
+NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
 NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
   let NERDTreeShowHidden=1
   let NERDTreeQuitOnOpen=0
