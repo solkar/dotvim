@@ -40,7 +40,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 
 "plugin/mapping configuration {{{
-" Syntax, highlighting
 NeoBundle 'scrooloose/syntastic' "{{{
       let g:syntastic_error_symbol = '✗'
       let g:syntastic_style_error_symbol = '✠'
@@ -63,7 +62,46 @@ NeoBundle 'kien/rainbow_parentheses.vim'
 "\    },
 "\ }
 " Completion
-NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neocomplete' , {'autoload':{'insert':1}, 'vim_version':'7.3.885'} "{{{
+        let g:acp_enableAtStartup = 0 " Disable AutoComplPop.
+        let g:neocomplete#enable_at_startup = 1
+        let g:neocomplete#enable_smart_case = 1
+        let g:neocomplete#sources#syntax#min_keyword_length = 3
+        let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+        let g:neocomplete#sources#dictionary#dictionaries = {
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
+        
+        if !exists('g:neocomplete#keyword_patterns')
+            let g:neocomplete#keyword_patterns = {}
+        endif
+        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+        inoremap <expr><C-g>     neocomplete#undo_completion()
+        inoremap <expr><C-l>     neocomplete#complete_common_string()
+        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        function! s:my_cr_function()
+            return neocomplete#close_popup() . "\<CR>"
+            " For no inserting <CR> key.
+            "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        endfunction
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " <C-h>, <BS>: close popup and delete backword char.
+        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><C-y>  neocomplete#close_popup()
+        inoremap <expr><C-e>  neocomplete#cancel_popup()
+        if !exists('g:neocomplete#sources#omni#input_patterns')
+            let g:neocomplete#sources#omni#input_patterns = {}
+        endif
+
+        " For perlomni.vim setting.
+        " https://github.com/c9s/perlomni.vim
+        let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+        let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+"}}}
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neosnippet.vim' "{{{
@@ -82,13 +120,11 @@ NeoBundle 'Shougo/neosnippet.vim' "{{{
 NeoBundle 'avakhov/vim-yaml'
 NeoBundle 'vim-scripts/loremipsum'
 NeoBundle 'Chiel92/vim-autoformat'
-
-" OmniSharp
 NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'OmniSharp/omnisharp-vim'
-"NeoBundle 'Shougo/unite.vim'
-"let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
-let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
+NeoBundle 'OmniSharp/omnisharp-vim' "{{{
+let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
+"let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
+"}}}
 NeoBundle 'Shougo/unite.vim' "{{{
       let bundle = neobundle#get('unite.vim')
       function! bundle.hooks.on_source(bundle)
@@ -142,6 +178,10 @@ NeoBundle 'Shougo/unite.vim' "{{{
 NeoBundle "mileszs/ack.vim"
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tpope/vim-git'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'kien/ctrlp.vim'
@@ -154,20 +194,10 @@ nmap <silent> <Leader>y :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
 let g:tagbar_width=32
 
-NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tommcdo/vim-exchange'
 NeoBundle 'mtth/scratch.vim'
 NeoBundle 'elzr/vim-json'
-
-" Goyo writing without distractions
 NeoBundle 'junegunn/goyo.vim'
-
-" Git
-NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-fugitive'
-
-" Markdown
-NeoBundle 'tpope/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown.git'
 
 "}}}
@@ -183,66 +213,8 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" NeoComplete setup
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 set completeopt+=preview
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -251,20 +223,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
-
 
 
 " base configuration{{{
