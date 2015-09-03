@@ -182,7 +182,17 @@ NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-markdown'
-NeoBundle 'scrooloose/nerdtree'
+NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
+  let NERDTreeShowHidden=1
+  let NERDTreeQuitOnOpen=0
+  let NERDTreeShowLineNumbers=1
+  let NERDTreeChDirMode=0
+  let NERDTreeShowBookmarks=1
+  let NERDTreeIgnore=['\.git','\.hg']
+  let NERDTreeBookmarksFile=s:get_cache_dir('NERDTreeBookmarks')
+  nnoremap <F2> :NERDTreeToggle<CR>
+  nnoremap <F3> :NERDTreeFind<CR>
+"}}}
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'ctrlpvim/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
       let g:ctrlp_clear_cache_on_exit=1
