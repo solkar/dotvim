@@ -125,6 +125,8 @@ NeoBundle 'OmniSharp/omnisharp-vim' "{{{
 let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
 "let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
 "}}}
+
+" unite & extensions{{{ 
 NeoBundle 'Shougo/unite.vim' "{{{
       let bundle = neobundle#get('unite.vim')
       function! bundle.hooks.on_source(bundle)
@@ -174,7 +176,27 @@ NeoBundle 'Shougo/unite.vim' "{{{
       nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
       nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
     "}}}
-
+    NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
+    NeoBundleLazy 'osyo-manga/unite-airline_themes', {'autoload':{'unite_sources':'airline_themes'}} "{{{
+      nnoremap <silent> [unite]a :<C-u>Unite -winheight=10 -auto-preview -buffer-name=airline_themes airline_themes<cr>
+    "}}}
+    NeoBundleLazy 'ujihisa/unite-colorscheme', {'autoload':{'unite_sources':'colorscheme'}} "{{{
+      nnoremap <silent> [unite]c :<C-u>Unite -winheight=10 -auto-preview -buffer-name=colorschemes colorscheme<cr>
+    "}}}
+    NeoBundleLazy 'tsukkee/unite-tag', {'autoload':{'unite_sources':['tag','tag/file']}} "{{{
+      nnoremap <silent> [unite]t :<C-u>Unite -auto-resize -buffer-name=tag tag tag/file<cr>
+    "}}}
+    NeoBundleLazy 'Shougo/unite-outline', {'autoload':{'unite_sources':'outline'}} "{{{
+      nnoremap <silent> [unite]o :<C-u>Unite -auto-resize -buffer-name=outline outline<cr>
+    "}}}
+    NeoBundleLazy 'Shougo/unite-help', {'autoload':{'unite_sources':'help'}} "{{{
+      nnoremap <silent> [unite]h :<C-u>Unite -auto-resize -buffer-name=help help<cr>
+    "}}}
+    NeoBundleLazy 'Shougo/junkfile.vim', {'autoload':{'commands':'JunkfileOpen','unite_sources':['junkfile','junkfile/new']}} "{{{
+      let g:junkfile#directory=s:get_cache_dir('junk')
+      nnoremap <silent> [unite]j :<C-u>Unite -auto-resize -buffer-name=junk junkfile junkfile/new<cr>
+    "}}}
+"}}}
 NeoBundle "mileszs/ack.vim"
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish'
@@ -233,13 +255,8 @@ NeoBundle 'mtth/scratch.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'jtratner/vim-flavored-markdown.git'
-
 "}}}
 
-" Unite Mappings
-"nnoremap <Leader>f :Unite -start-insert file_rec/async<CR>
-"nnoremap <space>- :Unite grep:.<CR>
-"nnoremap <space>s :Unite -quick-match buffer<CR>
 
 
 " For snippet_complete marker.
