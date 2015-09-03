@@ -224,12 +224,9 @@ NeoBundle 'ctrlpvim/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
 
 let g:CommandTMatchWindowAtTop=1 " show window at top
 
-" Tagbar
-NeoBundle 'majutsushi/tagbar'
-"nmap <F5> :TagbarToggle<CR>
-nmap <silent> <Leader>y :TagbarToggle<CR>
-let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-let g:tagbar_width=32
+NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
+      nnoremap <silent> <F4> :TagbarToggle<CR>
+"}}}
 
 NeoBundle 'tommcdo/vim-exchange'
 NeoBundle 'mtth/scratch.vim'
