@@ -184,7 +184,8 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+
 let g:CommandTMatchWindowAtTop=1 " show window at top
 
 " Tagbar
