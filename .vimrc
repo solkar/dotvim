@@ -95,7 +95,15 @@ NeoBundle 'Shougo/neocomplete' , {'autoload':{'insert':1}, 'vim_version':'7.3.88
             " For no inserting <CR> key.
             "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
         endfunction
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+        " <TAB>: completion.
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+                    \ <SID>check_back_space() ? "\<TAB>" :
+                    \ neocomplete#start_manual_complete()
+        function! s:check_back_space() "{{{
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction "}}}
         " <C-h>, <BS>: close popup and delete backword char.
         inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -104,6 +112,7 @@ NeoBundle 'Shougo/neocomplete' , {'autoload':{'insert':1}, 'vim_version':'7.3.88
         if !exists('g:neocomplete#sources#omni#input_patterns')
             let g:neocomplete#sources#omni#input_patterns = {}
         endif
+
 
         " For perlomni.vim setting.
         " https://github.com/c9s/perlomni.vim
@@ -473,7 +482,6 @@ noremap  <C-]>  g<C-]>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <leader>h :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
 
 " a.vim options
 let g:alternateExtensions_m = "h"
