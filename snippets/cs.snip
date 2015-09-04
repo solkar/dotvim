@@ -3,3 +3,13 @@ snippet    log
 abbr        send log message to the console
     Debug.Log( "${1}" );
     ${0}
+
+snippet    loge
+abbr        send Error log message to the console
+    Debug.LogError( "${1}" );
+    ${0}
+
+snippet    logw
+abbr        send Warning log message to the console
+    Debug.LogWarning( "${1}" );
+    ${0}
