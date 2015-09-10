@@ -13,3 +13,7 @@ snippet    logw
 abbr        send Warning log message to the console
     Debug.LogWarning( "${1}" );
     ${0}
+
+snippet     require
+abbr        Require a component
+    [RequireComponent ( typeof ( ${1} ) ) ]${0}
