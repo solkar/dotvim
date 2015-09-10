@@ -273,6 +273,7 @@ NeoBundle 'mtth/scratch.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'jtratner/vim-flavored-markdown.git'
+NeoBundle 'junegunn/vim-easy-align'
 NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
       nmap <Leader>a& :Tabularize /&<CR>
       vmap <Leader>a& :Tabularize /&<CR>
