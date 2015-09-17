@@ -16,7 +16,8 @@ let s:settings.default_indent = 2
 let s:settings.max_column = 120
 let s:settings.autocomplete_method = 'neocomplcache'
 let s:settings.enable_cursorcolumn = 0
-let s:settings.colorscheme = 'jellybeans'
+"let s:settings.colorscheme = 'jellybeans'
+let s:settings.colorscheme = 'badwolf'
 
 " functions {{{
   function! s:get_cache_dir(suffix) "{{{
@@ -392,7 +393,10 @@ nmap <Leader>j !python -m json.tool<CR>
   NeoBundle 'chriskempson/base16-vim'
   NeoBundle 'w0ng/vim-hybrid'
   NeoBundle 'sjl/badwolf'
-  NeoBundle 'zeis/vim-kolor' "{{{
+  NeoBundle 'gilgigilgil/anderson.vim' 
+  NeoBundle 'Lokaltog/vim-distinguished'
+  NeoBundle 'zeis/vim-kolor' 
+  "{{{
     let g:kolor_underlined=1
   "}}}
 "}}}
