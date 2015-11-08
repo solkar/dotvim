@@ -17,7 +17,7 @@ let s:settings.max_column = 120
 let s:settings.autocomplete_method = 'neocomplcache'
 let s:settings.enable_cursorcolumn = 0
 "let s:settings.colorscheme = 'jellybeans'
-let s:settings.colorscheme = 'badwolf'
+let s:settings.colorscheme = 'anderson'
 
 " functions {{{
   function! s:get_cache_dir(suffix) "{{{
